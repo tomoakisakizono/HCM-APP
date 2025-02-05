@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  app:
+    image: php:8.3-apache
+    container_name: app
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    working_dir: /var/www/html
+    networks:
+      - app-network
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: home_communication
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  frontend:
+    image: node:18
+    container_name: frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm start"
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
+    driver: bridge
