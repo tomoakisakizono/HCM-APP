@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Button } from './ui/button';
+import { Card, CardContent } from './ui/card';
 import axios from 'axios';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
 const AuthComponent = () => {
   const [email, setEmail] = useState('');
