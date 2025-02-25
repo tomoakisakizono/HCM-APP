@@ -44,16 +44,17 @@ services:
   #     - db
 
   frontend:
-    image: node:18
-    container_name: frontend
-    working_dir: /app
+    build:
+      context: ./frontend/reactapp
     volumes:
-      - ./frontend:/app
+      - ./frontend/reactapp:/app  # ← 修正: /usr/src/app ではなく /app を指定
+      - /app/node_modules  # ← 修正: node_modules をボリュームマウント
+    working_dir: /app  # ← 修正: 作業ディレクトリを /app に
     ports:
       - "3000:3000"
-    command: sh -c "npm install && npm start"
-    networks:
-      - app-network
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: ["npm", "start"]
 
 volumes:
   db-data:

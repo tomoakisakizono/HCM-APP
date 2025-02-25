@@ -1,9 +1,10 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import RegisterPage from './components/RegisterPage';
-import AuthComponent from './components/AuthComponent';
+import Home from './pages/Home';
+// import RegisterPage from './components/RegisterPage';
+// import AuthComponent from './components/AuthComponent';
 
 function App() {
   return (
@@ -26,8 +27,9 @@ function App() {
 
     <Router>
       <Routes>
-        <Route path="/" element={<AuthComponent />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<AuthComponent />} />
+        <Route path="/register" element={<RegisterPage />} /> */}
       </Routes>
     </Router>
   );
